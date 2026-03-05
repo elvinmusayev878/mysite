@@ -2,33 +2,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Film Site</title>
+<title>Elvin Movie</title>
 
 <style>
 
 body{
-background:#111;
-color:white;
-font-family:Arial;
 margin:0;
+background:#0f0f0f;
+font-family:Arial;
+color:white;
 }
 
 header{
 background:black;
-padding:15px;
-font-size:24px;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
 color:red;
+font-size:28px;
 font-weight:bold;
 }
 
+.search{
+padding:8px;
+font-size:16px;
+border-radius:5px;
+border:none;
+}
+
 .movies{
-display:flex;
-flex-wrap:wrap;
+display:grid;
+grid-template-columns:repeat(auto-fill,200px);
+gap:20px;
 padding:20px;
+justify-content:center;
 }
 
 .movie{
-margin:10px;
+cursor:pointer;
 }
 
 .movie img{
@@ -41,6 +56,31 @@ transition:0.3s;
 transform:scale(1.1);
 }
 
+.player{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.player iframe{
+width:80%;
+height:80%;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:30px;
+cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -48,30 +88,81 @@ transform:scale(1.1);
 <body>
 
 <header>
-ELVIN FILM 🎬
+
+<div class="logo">ELVIN MOVIES 🎬</div>
+
+<input class="search" id="search" placeholder="Film axtar...">
+
 </header>
 
-<div class="movies">
+<div class="movies" id="movies"></div>
 
-<div class="movie">
-<a href="https://www.youtube.com/watch?v=TcMBFSGVi1c">
-<img src="https://img.youtube.com/vi/TcMBFSGVi1c/0.jpg">
-</a>
+<div class="player" id="player">
+<div class="close" onclick="closePlayer()">✖</div>
+<iframe id="video" frameborder="0" allowfullscreen></iframe>
 </div>
 
-<div class="movie">
-<a href="https://www.youtube.com/watch?v=EXeTwQWrcwY">
-<img src="https://img.youtube.com/vi/EXeTwQWrcwY/0.jpg">
-</a>
-</div>
+<script>
 
-<div class="movie">
-<a href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-<img src="https://img.youtube.com/vi/6ZfuNTqbHE8/0.jpg">
-</a>
-</div>
+const movies = [
 
+{title:"Avengers Endgame",id:"TcMBFSGVi1c"},
+{title:"Joker",id:"zAGVQLHvwOY"},
+{title:"Spider Man",id:"TYMMOjBUPMM"},
+{title:"Batman",id:"mqqft2x_Aa4"},
+{title:"Fast and Furious",id:"uisBaTkQAEs"},
+{title:"Transformers",id:"AntcyqJ6brc"},
+{title:"John Wick",id:"2AUmvWm5ZDQ"},
+{title:"Interstellar",id:"zSWdZVtXT7E"}
+
+]
+
+const container = document.getElementById("movies")
+
+function showMovies(list){
+
+container.innerHTML=""
+
+list.forEach(m=>{
+
+container.innerHTML+=`
+<div class="movie" onclick="play('${m.id}')">
+<img src="https://img.youtube.com/vi/${m.id}/0.jpg">
+<p>${m.title}</p>
 </div>
+`
+
+})
+
+}
+
+showMovies(movies)
+
+function play(id){
+
+document.getElementById("player").style.display="flex"
+document.getElementById("video").src="https://www.youtube.com/embed/"+id
+
+}
+
+function closePlayer(){
+
+document.getElementById("player").style.display="none"
+document.getElementById("video").src=""
+
+}
+
+document.getElementById("search").addEventListener("input",e=>{
+
+const text=e.target.value.toLowerCase()
+
+const filtered=movies.filter(m=>m.title.toLowerCase().includes(text))
+
+showMovies(filtered)
+
+})
+
+</script>
 
 </body>
 </html>
