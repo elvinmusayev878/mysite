@@ -6,7 +6,10 @@
 
 <meta name="google-site-verification" content="2gtmop4yiZyN0UpxSlv26PEexuZKG_ixNH4nkNScshU" />
 
-<title>ELVIN CINEMA</title>
+<meta name="description" content="Türkçe dublaj ve altyazılı filmler izle">
+<meta name="keywords" content="film izle, türkçe dublaj film, hd film izle">
+
+<title>ELVIN CINEMA | Türkçe Film İzle</title>
 
 <style>
 
@@ -81,10 +84,10 @@ margin-top:20px;
 
 <body>
 
-<header>ELVIN CINEMA 🎬</header>
+<header>ELVIN CINEMA 🎬 Türkçe Filmler</header>
 
 <div class="search">
-<input type="text" id="search" placeholder="Film axtar...">
+<input type="text" id="search" placeholder="Film ara...">
 </div>
 
 <iframe id="player" class="player" allowfullscreen></iframe>
@@ -101,7 +104,7 @@ async function loadMovies(){
 
 for(let page=1; page<=20; page++){
 
-let res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`)
+let res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=tr-TR&page=${page}`)
 let data = await res.json()
 
 data.results.forEach(movie=>{
